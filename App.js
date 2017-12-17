@@ -11,7 +11,9 @@ import { Constants } from 'expo';
 
 import AddEntry from './components/AddEntry';
 import History from './components/History';
-import EntryDetail from './components/EntryDetail'
+import EntryDetail from './components/EntryDetail';
+import Live from './components/Live';
+import { setLocalNotification } from './utils/helpers'
 
 
 function UdaciStatusBar({ backgroundColor, ...props }) {
@@ -36,6 +38,13 @@ const Tabs = TabNavigator({
     navigationOptions: {
       tabBarLabel: 'Add Entry',
       tabBarIcon: ({ tintColor }) => <FontAwesome name='plus-square' size={30} color={tintColor} />
+    },
+  },
+  Live: {
+    screen: Live,
+    navigationOptions: {
+      tabBarLabel: 'Live',
+      tabBarIcon: ({ tintColor }) => <Ionicons name='ios-speedometer' size={30} color={tintColor} />
     },
   },
 }, {
@@ -75,6 +84,9 @@ const MainNavigator = StackNavigator({
 
 
 export default class App extends Component {
+  componentDidMount() {
+    setLocalNotification()
+  }
   render() {
     return (
       <Provider store={createStore(reducer)}>
